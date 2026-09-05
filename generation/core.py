@@ -6,18 +6,7 @@ import qure.assets
 import qure.fonts
 from PIL import Image, ImageDraw, ImageFont
 
-from .templates import (
-    TEMPLATES,
-    templates,
-    template1,
-    template2,
-    template3,
-    template4,
-    template5,
-    template6,
-    template9,
-    template_kaascan_only,
-)
+from .templates import templates
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -71,89 +60,30 @@ class CGenerator:
 
         print(f'Starting request to create_student_card....')
 
-        # Templates registered with `templates` (see generation/templates/registry.py)
-        # are dispatched generically - no elif branch needed to add one. Only
-        # "Template 1" and "Kaascan Only" have been migrated so far; the rest
-        # still fall through to the hardcoded chain below.
-        if template in templates.list():
-            config = {
-                "primaryColor": primaryColor,
-                "secondarColor": secondarColor,
-                "student_photo": student_photo,
-                "school_logo": school_logo,
-                "school_stamp": school_stamp,
-                "school_name": school_name,
-                "school_slogan": school_slogan,
-                "academic_year": academic_year,
-                "expiration_date": expiration_date,
-                "school_phone": school_phone,
-                "school_email": school_email,
-                "location": location,
-                "website": website,
-                "principal_name": principal_name,
-                "principal_phone": principal_phone,
-                "principal_mail": principal_mail,
-                "principal_signature": principal_signature,
-            }
-            return templates.get(template).render(self, config, cards_path)
-
-        if template == "Template 2":
-            return template2(
-                self, template, primaryColor, secondarColor,
-                school_logo, school_stamp, school_name, school_slogan, academic_year,
-                expiration_date, student_photo, school_phone, school_email, location, website, principal_name,
-                principal_phone, principal_mail, principal_signature, cards_path
-            )
-        elif template == "Template 3":
-            return template3(self, template, primaryColor, secondarColor, school_logo, school_name, school_slogan, academic_year, expiration_date, student_photo, cards_path)
-        elif template == "Template 4":
-            return template4(
-                self, template, primaryColor, secondarColor,
-                school_logo, school_stamp, school_name, school_slogan,
-                academic_year, expiration_date, student_photo,
-                school_phone, school_email, location, website,
-                principal_name, principal_phone, principal_mail, principal_signature,
-                cards_path
-            )
-        elif template == "Template 5":
-            return template5(
-                self, template, primaryColor, secondarColor,
-                school_logo, school_stamp, school_name, school_slogan,
-                academic_year, expiration_date, student_photo,
-                school_phone, school_email, location, website,
-                principal_name, principal_phone, principal_mail, principal_signature,
-                cards_path
-            )
-        elif template == "Template 6":
-            return template6(
-                self, template, primaryColor, secondarColor,
-                school_logo, school_stamp, school_name, school_slogan,
-                academic_year, expiration_date, student_photo,
-                school_phone, school_email, location, website,
-                principal_name, principal_phone, principal_mail, principal_signature,
-                cards_path
-            )
-        elif template == "Template 9":
-            return template9(
-                self, template, primaryColor, secondarColor,
-                school_logo, school_stamp, school_name, school_slogan,
-                academic_year, expiration_date, student_photo,
-                school_phone, school_email, location, website,
-                principal_name, principal_phone, principal_mail, principal_signature,
-                cards_path
-            )
-        # For non-partnered schools
-        # card_path = self.template_kaascan_only(
-        #     card_template="kaascan_only",
-        #     MprimaryColor=(45, 104, 196),  # Your brand color
-        #     MsecondarColor=(255, 215, 0),   # Gold accent
-        #     academic_year="2024-2025",
-        #     expiration_date="Dec 31, 2025",
-        #     student_photo="path/to/photo.jpg",
-        #     cards_path="output/path/"
-        # )
-        else:
-            raise ValueError("Invalid template name")
+        # Every template is looked up in `templates` (see
+        # generation/templates/registry.py) - adding a new one is a matter of
+        # calling `templates.register(...)`/`templates.add(...)`, not editing
+        # this method.
+        config = {
+            "primaryColor": primaryColor,
+            "secondarColor": secondarColor,
+            "student_photo": student_photo,
+            "school_logo": school_logo,
+            "school_stamp": school_stamp,
+            "school_name": school_name,
+            "school_slogan": school_slogan,
+            "academic_year": academic_year,
+            "expiration_date": expiration_date,
+            "school_phone": school_phone,
+            "school_email": school_email,
+            "location": location,
+            "website": website,
+            "principal_name": principal_name,
+            "principal_phone": principal_phone,
+            "principal_mail": principal_mail,
+            "principal_signature": principal_signature,
+        }
+        return templates.get(template).render(self, config, cards_path)
 
     def _wrap_text(self, text: str, font: ImageFont, max_width: int) -> list:
         """Helper function to wrap text."""

@@ -1,9 +1,0 @@
-Metadata-Version: 2.4
-Name: qure
-Version: 2.0.0
-Summary: Kaascan student ID card generation library
-Author: INEZA Fraterne Ely HOZANA
-Requires-Python: >=3.9
-Requires-Dist: Pillow
-Requires-Dist: qrcode
-Requires-Dist: cryptography
