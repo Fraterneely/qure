@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qure"
+description = "Kaascan student ID card generation library"
+requires-python = ">=3.9"
+authors = [{ name = "INEZA Fraterne Ely HOZANA" }]
+dynamic = ["version"]
+dependencies = [
+    "Pillow",
+    "qrcode",
+    "cryptography",
+]
+
+[tool.setuptools.dynamic]
+version = { attr = "qure.__version__.__version__" }
+
+[tool.setuptools]
+package-dir = { "qure" = "." }
+packages = [
+    "qure",
+    "qure.generation",
+    "qure.generation.templates",
+    "qure.encryption",
+    "qure.fonts",
+    "qure.assets",
+    "qure.utils",
+]
+
+[tool.setuptools.package-data]
+"qure.assets" = ["*.png", "*.jpg"]
+"qure.fonts" = ["**/*.ttf"]
