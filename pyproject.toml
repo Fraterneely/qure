@@ -4,10 +4,24 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "qure"
-description = "Kaascan student ID card generation library"
+description = "A pluggable Python library for generating credential cards - student IDs, employee badges, membership cards, event passes - with photos, QR codes, and optional encryption"
 requires-python = ">=3.9"
 authors = [{ name = "INEZA Fraterne Ely HOZANA" }]
+license = { text = "MIT" }
 dynamic = ["version"]
+keywords = ["id-card", "badge", "credential", "qr-code", "card-generator", "pillow", "wallet-pass"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 dependencies = [
     "Pillow",
     "qrcode",
